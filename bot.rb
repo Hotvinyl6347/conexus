@@ -34,7 +34,7 @@ TEXT_PERMS.can_read_message_history = true
 TEXT_PERMS.can_read_messages = true
 TEXT_PERMS.can_send_messages = true
 
-BOT = Discordrb::Commands::CommandBot.new token: ARGV.first, client_id: ARGV[1], prefix: '!', advanced_functionality: true
+BOT = Discordrb::Commands::CommandBot.new token: ARGV.first, client_id: ARGV[1], prefix: '?', advanced_functionality: true
 
 BOT.ready { |event| BOT.servers.each { |_, server| setup_server(server) }; BOT.set_user_permission(152621041976344577, 3) }
 
@@ -205,6 +205,6 @@ end
 puts "Oauth url: #{BOT.invite_url}+&permissions=8"
 
 BOT.run :async
-BOT.dnd
-BOT.profile.name = 'conexus'
+BOT.online
+BOT.profile.name = 'Zero Two'
 BOT.sync
