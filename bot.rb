@@ -38,7 +38,7 @@ BOT = Discordrb::Commands::CommandBot.new token: ARGV.first, client_id: ARGV[1],
 
 BOT.ready { |event| BOT.servers.each { |_, server| setup_server(server) }; BOT.set_user_permission(152621041976344577, 3) }
 
-BOT.server_create do |event| 
+BOT.server_create do |event|
   event.server.member(event.BOT.profile.id).nick = "🔗"
   event.server.owner.pm("Thank you for using **Conexus**!\nTo change the name of created associated text-channels, type **IN THE SERVER**: `set-name 'new-name-here'`")
   setup_server(event.server)
@@ -70,7 +70,7 @@ end
 def simplify_voice_states(voice_states)
   clone = voice_states.clone
   clone.each { |user_id, state| clone[user_id] = state.voice_channel }
-  
+
   return clone
 end
 
@@ -92,13 +92,13 @@ def associate(voice_channel)
     puts "Not found... creating..."
     text_channel = server.create_channel(SERVER_NAMINGS[server.id], 0) # Creates a matching text-channel called 'voice-channel'
     text_channel.topic = "Private chat for all those in the voice-channel [**#{voice_channel.name}**]."
-    
+
     voice_channel.users.each do |u|
       text_channel.define_overwrite(u, TEXT_PERMS, 0)
     end
 
     text_channel.define_overwrite(voice_channel.server.roles.find { |r| r.id == voice_channel.server.id }, 0, TEXT_PERMS) # Set default perms as invisible
-    ASSOCIATIONS[voice_channel.id] = text_channel.id # Associate the two 
+    ASSOCIATIONS[voice_channel.id] = text_channel.id # Associate the two
     save
   end
 
@@ -118,7 +118,7 @@ def handle_user_change(action, voice_channel, user)
       embed.url = "https://discordapp.com"
       embed.description = "Joined the voice channel"
 
-      embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "#{user.display_name}", url: "https://discordapp.com", icon_url: "https://cdn.discordapp.com/#{user.id}/#{user.avatar_id}.png")
+      embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "#{user.display_name}", icon_url: "#{user.avatar_url}")
     end
     text_channel.define_overwrite(user, TEXT_PERMS, 0)
   else
@@ -127,7 +127,7 @@ def handle_user_change(action, voice_channel, user)
       embed.url = "https://discordapp.com"
       embed.description = "Left the voice channel"
 
-      embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "#{user.display_name}", url: "https://discordapp.com", icon_url: "https://cdn.discordapp.com/#{user.id}/#{user.avatar_id}.png")
+      embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "#{user.display_name}", icon_url: "#{user.avatar_url}")
     end
     text_channel.define_overwrite(user, 0, 0)
   end
