@@ -114,7 +114,7 @@ def handle_user_change(action, voice_channel, user)
 
   if action == :join
     text_channel.send_embed do |embed|
-      embed.colour = 0x13d3c6
+      embed.colour = 0x53f4d9
       embed.url = "https://discordapp.com"
       embed.description = "Joined the voice channel"
 
@@ -123,7 +123,7 @@ def handle_user_change(action, voice_channel, user)
     text_channel.define_overwrite(user, TEXT_PERMS, 0)
   else
     text_channel.send_embed do |embed|
-      embed.colour = 0x13d3c6
+      embed.colour = 0x53f4d9
       embed.url = "https://discordapp.com"
       embed.description = "Left the voice channel"
 
@@ -218,5 +218,5 @@ puts "Oauth url: #{BOT.invite_url}+&permissions=8"
 
 BOT.run :async
 BOT.online
-BOT.profile.name = 'Zero Two'
+BOT.profile.name = 'Rikka Takanashi'
 BOT.sync
