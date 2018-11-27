@@ -118,7 +118,7 @@ def handle_user_change(action, voice_channel, user)
       embed.url = "https://discordapp.com"
       embed.description = "Joined the voice channel"
 
-      embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "{user.display_name}", url: "https://discordapp.com", icon_url: "https://cdn.discordapp.com/{user.id}/{user.avatar}.png")
+      embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "#{user.display_name}", url: "https://discordapp.com", icon_url: "https://cdn.discordapp.com/#{user.id}/#{user.avatar}.png")
     end
     text_channel.define_overwrite(user, TEXT_PERMS, 0)
   else
@@ -127,7 +127,7 @@ def handle_user_change(action, voice_channel, user)
       embed.url = "https://discordapp.com"
       embed.description = "Left the voice channel"
 
-      embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "{user.display_name}", url: "https://discordapp.com", icon_url: "https://cdn.discordapp.com/{user.id}/{user.avatar}.png")
+      embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "#{user.display_name}", url: "https://discordapp.com", icon_url: "https://cdn.discordapp.com/#{user.id}/#{user.avatar}.png")
     end
     text_channel.define_overwrite(user, 0, 0)
   end
