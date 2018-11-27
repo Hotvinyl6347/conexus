@@ -113,10 +113,20 @@ def handle_user_change(action, voice_channel, user)
   return if text_channel.nil?
 
   if action == :join
-    text_channel.send_message("**#{user.display_name}** joined the voice-channel.")
+    text_channel.send_embed do |embed|
+      embed.colour = 0x13d3c6
+      embed.url = "https://discordapp.com"
+      embed.description = "Joined the voice channel"
+
+      embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "{user.display_name}", url: "https://discordapp.com", icon_url: "https://cdn.discordapp.com/{user.id}/{user.avatar}.png")
     text_channel.define_overwrite(user, TEXT_PERMS, 0)
   else
-    text_channel.send_message("**#{user.display_name}** left the voice-channel.")
+    text_channel.send_embed do |embed|
+      embed.colour = 0x13d3c6
+      embed.url = "https://discordapp.com"
+      embed.description = "Left the voice channel"
+
+      embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "{user.display_name}", url: "https://discordapp.com", icon_url: "https://cdn.discordapp.com/{user.id}/{user.avatar}.png")
     text_channel.define_overwrite(user, 0, 0)
   end
 end
