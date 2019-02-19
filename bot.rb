@@ -123,7 +123,7 @@ def handle_user_change(action, voice_channel, user)
     text_channel.send_embed do |embed|
       embed.colour = 0x53f4d9
       embed.url = "https://discordapp.com"
-      embed.description = "Joined the voice channel"
+      embed.description = "Joined voice channel **#{voice_channel.name}**"
 
       embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "#{user.display_name}", icon_url: "#{user.avatar_url}")
     end
@@ -132,7 +132,7 @@ def handle_user_change(action, voice_channel, user)
     text_channel.send_embed do |embed|
       embed.colour = 0x53f4d9
       embed.url = "https://discordapp.com"
-      embed.description = "Left the voice channel"
+      embed.description = "Left voice channel **#{voice_channel.name}**"
 
       embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "#{user.display_name}", icon_url: "#{user.avatar_url}")
     end
