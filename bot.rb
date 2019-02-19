@@ -35,6 +35,10 @@ TEXT_PERMS.can_read_messages = true
 TEXT_PERMS.can_send_messages = true
 TEXT_PERMS.can_add_reactions = true
 
+NO1_PERMS = Discordrb::Permissions.new
+NO1_PERMS.can_read_message_history = true
+NO1_PERMS.can_read_messages = true
+
 NOTEXT_PERMS = Discordrb::Permissions.new
 NOTEXT_PERMS.can_send_messages = true
 NOTEXT_PERMS.can_add_reactions = true
@@ -61,7 +65,7 @@ def setup_server(server)
     end
     vc = server.voice_channels.find { |vc| vc.id == ASSOCIATIONS.key(tc) }
     tc.users.select { |u| !vc.users.include?(u) }.each do |u|
-      tc.define_overwrite(u, NOTEXT_PERMS, 0)
+      tc.define_overwrite(u, NO1_PERMS, NOTEXT_PERMS)
     end
   end
 
@@ -102,7 +106,7 @@ def associate(voice_channel)
       text_channel.define_overwrite(u, TEXT_PERMS, 0)
     end
 
-    text_channel.define_overwrite(voice_channel.server.roles.find { |r| r.id == voice_channel.server.id }, TEXT_PERMS, NOTEXT_PERMS) # Set default perms as invisible
+    text_channel.define_overwrite(voice_channel.server.roles.find { |r| r.id == voice_channel.server.id }, NO1_PERMS, NOTEXT_PERMS) # Set default perms as invisible
     ASSOCIATIONS[voice_channel.id] = text_channel.id # Associate the two
     save
   end
@@ -134,7 +138,7 @@ def handle_user_change(action, voice_channel, user)
 
       embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "#{user.display_name}", icon_url: "#{user.avatar_url}")
     end
-    text_channel.define_overwrite(user, TEXT_PERMS, NOTEXT_PERMS)
+    text_channel.define_overwrite(user, NO1_PERMS, NOTEXT_PERMS)
   end
 end
 
