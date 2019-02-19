@@ -147,12 +147,6 @@ BOT.channel_create(type: 2) do |event|
   associate(event.channel)
 end
 
-# VOICE-CHANNEL DELETED
-BOT.channel_delete(type: 2) do |event|
-  event.server.text_channels.select { |tc| tc.id == ASSOCIATIONS[event.id] }.map(&:delete)
-  trim_associations
-end
-
 BOT.voice_state_update do |event|
   #old = simplify_voice_states(OLD_VOICE_STATES[event.server.id])
   #current = simplify_voice_states(event.server.voice_states)
