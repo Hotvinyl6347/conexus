@@ -33,6 +33,13 @@ TEXT_PERMS = Discordrb::Permissions.new
 TEXT_PERMS.can_read_message_history = true
 TEXT_PERMS.can_read_messages = true
 TEXT_PERMS.can_send_messages = true
+TEXT_PERMS.can_add_reactions = true
+
+NOTEXT_PERMS = Discordrb::Permissions.new
+NOTEXT_PERMS.can_read_message_history = true
+NOTEXT_PERMS.can_read_messages = true
+NOTEXT_PERMS.can_send_messages = false
+NOTEXT_PERMS.can_add_reactions = false
 
 BOT = Discordrb::Commands::CommandBot.new token: ARGV.first, client_id: ARGV[1], prefix: '?', advanced_functionality: true
 
@@ -56,7 +63,7 @@ def setup_server(server)
     end
     vc = server.voice_channels.find { |vc| vc.id == ASSOCIATIONS.key(tc) }
     tc.users.select { |u| !vc.users.include?(u) }.each do |u|
-      tc.define_overwrite(u, 0, 0)
+      tc.define_overwrite(u, NOTEXT_PERMS, 0)
     end
   end
 
@@ -91,7 +98,7 @@ def associate(voice_channel)
   if text_channel.nil?
     puts "Not found... creating..."
     text_channel = server.create_channel(SERVER_NAMINGS[server.id], 0) # Creates a matching text-channel called 'voice-channel'
-    text_channel.topic = "Private chat for all those in the voice-channel [**#{voice_channel.name}**]."
+    text_channel.topic = "Private chat for all those in the voice-channel."
 
     voice_channel.users.each do |u|
       text_channel.define_overwrite(u, TEXT_PERMS, 0)
@@ -129,7 +136,7 @@ def handle_user_change(action, voice_channel, user)
 
       embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "#{user.display_name}", icon_url: "#{user.avatar_url}")
     end
-    text_channel.define_overwrite(user, 0, 0)
+    text_channel.define_overwrite(user, NOTEXT_PERMS, 0)
   end
 end
 
