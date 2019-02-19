@@ -104,7 +104,7 @@ def associate(voice_channel)
       text_channel.define_overwrite(u, TEXT_PERMS, 0)
     end
 
-    text_channel.define_overwrite(voice_channel.server.roles.find { |r| r.id == voice_channel.server.id }, 0, TEXT_PERMS) # Set default perms as invisible
+    text_channel.define_overwrite(voice_channel.server.roles.find { |r| r.id == voice_channel.server.id }, NOTEXT_PERMS, 0) # Set default perms as invisible
     ASSOCIATIONS[voice_channel.id] = text_channel.id # Associate the two
     save
   end
