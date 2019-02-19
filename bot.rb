@@ -35,6 +35,7 @@ TEXT_PERMS.can_read_messages = true
 TEXT_PERMS.can_send_messages = true
 TEXT_PERMS.can_add_reactions = true
 
+NOTEXT_PERMS = Discordrb::Permissions.new
 NOTEXT_PERMS.can_send_messages = true
 NOTEXT_PERMS.can_add_reactions = true
 
