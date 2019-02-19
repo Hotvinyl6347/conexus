@@ -35,11 +35,8 @@ TEXT_PERMS.can_read_messages = true
 TEXT_PERMS.can_send_messages = true
 TEXT_PERMS.can_add_reactions = true
 
-NOTEXT_PERMS = Discordrb::Permissions.new
-NOTEXT_PERMS.can_read_message_history = true
-NOTEXT_PERMS.can_read_messages = true
-NOTEXT_PERMS.can_send_messages = false
-NOTEXT_PERMS.can_add_reactions = false
+NOTEXT_PERMS.can_send_messages = true
+NOTEXT_PERMS.can_add_reactions = true
 
 BOT = Discordrb::Commands::CommandBot.new token: ARGV.first, client_id: ARGV[1], prefix: '?', advanced_functionality: true
 
@@ -104,7 +101,7 @@ def associate(voice_channel)
       text_channel.define_overwrite(u, TEXT_PERMS, 0)
     end
 
-    text_channel.define_overwrite(voice_channel.server.roles.find { |r| r.id == voice_channel.server.id }, 0, NOTEXT_PERMS) # Set default perms as invisible
+    text_channel.define_overwrite(voice_channel.server.roles.find { |r| r.id == voice_channel.server.id }, TEXT_PERMS, NOTEXT_PERMS) # Set default perms as invisible
     ASSOCIATIONS[voice_channel.id] = text_channel.id # Associate the two
     save
   end
@@ -136,7 +133,7 @@ def handle_user_change(action, voice_channel, user)
 
       embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "#{user.display_name}", icon_url: "#{user.avatar_url}")
     end
-    text_channel.define_overwrite(user, NOTEXT_PERMS, 0)
+    text_channel.define_overwrite(user, TEXT_PERMS, NOTEXT_PERMS)
   end
 end
 
