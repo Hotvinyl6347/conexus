@@ -31,13 +31,11 @@ OLD_VOICE_STATES = Hash.new
 # These are the perms given to people for a associated voice-channel
 TEXT_PERMS = Discordrb::Permissions.new
 TEXT_PERMS.can_read_message_history = true
-TEXT_PERMS.can_read_messages = true
 TEXT_PERMS.can_send_messages = true
 TEXT_PERMS.can_add_reactions = true
 
 NO1_PERMS = Discordrb::Permissions.new
 NO1_PERMS.can_read_message_history = true
-NO1_PERMS.can_read_messages = true
 
 NOTEXT_PERMS = Discordrb::Permissions.new
 NOTEXT_PERMS.can_send_messages = true
