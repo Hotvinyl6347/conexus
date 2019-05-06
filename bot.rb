@@ -219,5 +219,5 @@ puts "Oauth url: #{BOT.invite_url}+&permissions=8"
 
 BOT.run :async
 BOT.online
-BOT.profile.name = 'Rikka Takanashi'
+BOT.profile.name = 'Alice'
 BOT.sync
