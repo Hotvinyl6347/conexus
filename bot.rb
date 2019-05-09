@@ -57,10 +57,6 @@ def setup_server(server)
   trim_associations
   puts 'Cleaning up after restart'
   server.text_channels.select { |tc| tc.name == SERVER_NAMINGS[server.id] }.each do |tc|
-    unless ASSOCIATIONS.values.include?(tc.id)
-      tc.delete
-      next
-    end
     vc = server.voice_channels.find { |vc| vc.id == ASSOCIATIONS.key(tc) }
     tc.users.select { |u| !vc.users.include?(u) }.each do |u|
       tc.define_overwrite(u, NO1_PERMS, NOTEXT_PERMS)
